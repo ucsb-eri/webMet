@@ -85,10 +85,12 @@ try {
 		$output['aaData'][] = $aRow;
 	}
         //$json_output =  json_encode( $output );
-        $name = '/var/www/vhosts/webmet.eri.ucsb.edu';
-        $filename ='/admin/test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
+        //$name = '/var/www/vhosts/webmet.eri.ucsb.edu';
+        //$filename ='/admin/test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
+        //$filename ='/admin/test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
+        //$name .= $filename;
         
-        $name .= $filename;
+        $name ='./test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
         
         $fp = fopen($name, 'w');
         if(!is_resource($fp)){

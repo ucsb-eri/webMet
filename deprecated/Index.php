@@ -13,5 +13,6 @@
 //
 echo "Placeholder till we bet code sorted out<br>\n";
 ?>
+<a href="admin/date.html">Fetch data to process</a>
 </body>
 </html>
