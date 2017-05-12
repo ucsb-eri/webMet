@@ -1,0 +1,64 @@
+body {
+	background-color: #7C9EC4; // fallback
+	background-image: url('erilogo.png') top center no-repeat; // fallback
+	
+	background: url('erilogo.png') top center no-repeat, -moz-linear-gradient(top,  #7C9EC4,  #FFFFFF);
+	background: url('erilogo.png') top center no-repeat, -webkit-gradient(linear, left top, left bottom, from(#7C9EC4), to(#FFFFFF));
+}
+
+div#header {
+padding: 80px;
+margin: 0px;
+text-align: center;
+}
+div#nav {
+width: 10%;
+height: 100%;
+padding: 10px;
+margin-top: 21px;
+float: left;
+border-right: 3px solid #000; 
+}
+section#main{
+  width: 80%;
+  float: left;
+  margin: 5px;
+  padding: 15px;
+  display: inline;     
+}
+div#info {
+	background-color: #ccc;
+	padding: 10px;
+	width: 100%;
+	max-width:400px;
+	border:2px solid #FFF;
+	border-radius:25px;
+	float: left;
+}
+#left, #right {
+   float: left;
+   width: 35%;
+   margin: 1% 0 1% 1%;
+   padding: 1%;
+   color: #000;
+}
+#right {
+   float: right;
+   margin: 1% 1% 1% 0;
+}
+.clear {
+   height: 0;
+   font-size: 1px;
+   margin: 0;
+   padding: 0;
+   line-height: 0;
+   clear: both;
+}
+div#tab	{
+	margin-left: 30px;
+}
+div#dynamic	{
+	width: 70%;
+}
+TR {font-size:12px}
+TD {font-size:11px}
