@@ -6,12 +6,13 @@
   <title>Process Met SQL</title>
   <style type="text/css" title="currentStyle">
     @import "DataTables-1.9.4/media/css/demo_table.css";
-  </style>  
-  <link rel="stylesheet" type="text/css" href="stylingp.css">  
+  </style>
+  <link rel="stylesheet" type="text/css" href="stylingp.css">
 </head>
- 
+
 <body>
 <?php
+require_once 'config.php';
  	//set dates to pull date from(default to today if invalid or no POST)
         // set default values in case nothing is selected
  	//$startDate = date("Y-m-d");
@@ -23,13 +24,13 @@
 
 	//echo "From: {$_POST['from']} <br/>\n";
 	//echo "startDate: $startDate<br/>\n";
- 	date_default_timezone_set('America/Los_Angeles'); 
+ 	date_default_timezone_set('America/Los_Angeles');
  	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  		$startDate = ( isset($_POST["from"]) && $_POST['from'] != '' ) ? date("Y-m-d", strtotime($_POST["from"])) : date("Y-m-d");
  		$endDate = ( isset($_POST["to"]) && $_POST['to'] != '' ) ? date("Y-m-d", strtotime($_POST["to"])) : date("Y-m-d");
  		//if ( isset($_POST["to"]) )	{	$endDate = date("Y-m-d", strtotime($_POST["to"]));	}
  		//else { $endDate = date("Y-m-d"); }
- 		
+
 		if ( isset($_POST["Stime"])){
 			if ( $_POST["Sday"] == "pm" ){	$startTime = ($_POST["Shour"] + 12);	$startTime .= ":";	$startTime .= $_POST["Smin"];	$startTime .= ":00";	}
 			else	{	$startTime = ($_POST["Shour"]);	$startTime .= ":";	$startTime .= $_POST["Smin"];	$startTime .= ":00";	}
@@ -39,12 +40,12 @@
 		if ( isset($_POST["Ftime"])){
 			if ( $_POST["Fday"] == "pm" ){	$endTime = ($_POST["Fhour"] + 12);	$endTime .= ":";	$endTime .= $_POST["Fmin"];	$endTime .= ":59";	}
 			else {	$endTime = ($_POST["Fhour"]);	$endTime .= ":";	$endTime .= $_POST["Fmin"];	$endTime .= ":59";	}
-		}	
+		}
 		else { $endTime = "24:00"; }
-		
+
 		$every=$_POST["every"];
 		$station = $_POST["station"];
-	}	
+	}
  	else{
  		$startDate = date("Y-m-d");
  		$endDate = date("Y-m-d");
@@ -52,15 +53,15 @@
 		$startTime = "00:00";
 		$endTime = "24:00";
 		$station = "met1";
- 	} 
+ 	}
 
 
  	// Create connection to mysql
  	$user = 'browse';
  	$columns=array();
-try {	
+try {
 	$conn = new PDO('mysql:host=localhost;dbname=webmet', $user, '');
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);	
+	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch(PDOException $e) {	echo 'ERROR: ' . $e->getMessage();	}
 
 try {
@@ -80,14 +81,14 @@ try {
 	$row = $stmt->fetchAll();
 
         //encode results into json for dataTables
-	$iTotal=count($row);		
+	$iTotal=count($row);
 	$output = array(
                 "sEcho" => 1,
                 "iTotalRecords" => $iTotal,
                 "iTotalDisplayRecords" => $iTotal,
                 "aaData" => array()
         );
-	for ( $j=0 ; $j<count($row) ; $j++ ){	
+	for ( $j=0 ; $j<count($row) ; $j++ ){
 		$aRow=array();
 		for ( $i=0 ; $i<count($columns) ; $i++ ){
 			$aRow[] = $row[$j][ $columns[$i] ];
@@ -99,9 +100,9 @@ try {
         //$filename ='/admin/test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
         //$filename ='/admin/test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
         //$name .= $filename;
-        
+
         $name ='./var/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
-        
+
         $fp = fopen($name, 'w');
         if(!is_resource($fp)){
         	echo "ERROR: CSV RESOURCE NOT AVAILABLE";
@@ -112,9 +113,9 @@ try {
         		fputcsv($fp, $fields);
         	}
         }
-	
+
 	if( $fp === TRUE ){	fclose($fp);	}
-		
+
 } catch(PDOException $e) {	echo 'ERROR: ' . $e->getMessage();	}
 
 ?>
@@ -130,10 +131,10 @@ try {
 
 <section id="main">
 <h1 align="center">Data From Met Stations</h1>
-<h2>Met 1 Station Processed Data</h2>
+<h2><?php echo $metstations[$station]; ?> Station Processed Data</h2>
 
 <div id="info">
-<h3>Download Information</h3>     
+<h3>Download Information</h3>
 <div id="left">
 <p>Requested Data:</br>StartDate:<?php echo $startDate; ?></br>StartTime:<?php echo $startTime; ?></br>Every:<?php echo $every . " Minutes"; ?></p>
 </div>
@@ -160,7 +161,7 @@ $(document).ready(function() {
                 echo implode('", "', $value);
                 echo '"]';
 	}
-	?> 
+	?>
 	],
         "aoColumns": [
         /*
@@ -193,14 +194,14 @@ $(document).ready(function() {
             { "sTitle": "wchill" },
             { "sTitle": "rrate" },
             { "sTitle": "rtotal"}
-        ], 
+        ],
         "sScrollY": "40%",
         "bPaginate": false,
         "sScrollX": "70%",
         "sScrollXInner": "100%",
 	"bScrollCollapse": false,
 	"bAutoWidth": false
-	
+
     } );
 } );
 </script>
