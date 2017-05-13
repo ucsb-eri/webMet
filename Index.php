@@ -65,9 +65,9 @@ require_once 'config.php';
 <div id="nav"><a href="http://www.eri.ucsb.edu">ERI Home</a></div>
 
 <section id="main">
-  <h1 align="center">Data From Met Stations</h1>
+  <h1>Data From Met Stations</h1>
   <h2>Met Stations</h2>
-  <p>
+  <!-- <p> -->
   <form method="post" action="process.php">
 
   <label for="station">Select Station:</label>
@@ -137,7 +137,7 @@ foreach($metstations as $key => $desc){
   <input type="submit" value="Send">
 
   </form>
-  </p>
+  <!-- </p> -->
   </section>
 </div>
 </body>
