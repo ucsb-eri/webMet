@@ -2,10 +2,10 @@
  <head>
  <meta charset="UTF-8"/>
  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
- <script type="text/javascript" charset="utf-8" src="/admin/DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+ <script type="text/javascript" charset="utf-8" src="DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
   <title>Process Met SQL</title>
   <style type="text/css" title="currentStyle">
-    @import "/admin/DataTables-1.9.4/media/css/demo_table.css";
+    @import "DataTables-1.9.4/media/css/demo_table.css";
   </style>  
   <link rel="stylesheet" type="text/css" href="stylingp.css">  
 </head>
@@ -13,15 +13,23 @@
 <body>
 <?php
  	//set dates to pull date from(default to today if invalid or no POST)
+        // set default values in case nothing is selected
+ 	//$startDate = date("Y-m-d");
+ 	//$endDate = date("Y-m-d");
+ 	//$every="60";
+	//$startTime = "00:00";
+	//$endTime = "24:00";
+	//$station = "met1";
+
+	//echo "From: {$_POST['from']} <br/>\n";
+	//echo "startDate: $startDate<br/>\n";
  	date_default_timezone_set('America/Los_Angeles'); 
  	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
- 		if ( isset($_POST["from"]) ){	$startDate = date("Y-m-d", strtotime($_POST["from"]));	}
- 		else {	$startDate = date("Y-m-d");	}
- 		if ( isset($_POST["to"]) )	{	$endDate = date("Y-m-d", strtotime($_POST["to"]));	}
- 		else { $endDate = date("Y-m-d"); }
+ 		$startDate = ( isset($_POST["from"]) && $_POST['from'] != '' ) ? date("Y-m-d", strtotime($_POST["from"])) : date("Y-m-d");
+ 		$endDate = ( isset($_POST["to"]) && $_POST['to'] != '' ) ? date("Y-m-d", strtotime($_POST["to"])) : date("Y-m-d");
+ 		//if ( isset($_POST["to"]) )	{	$endDate = date("Y-m-d", strtotime($_POST["to"]));	}
+ 		//else { $endDate = date("Y-m-d"); }
  		
-
-		
 		if ( isset($_POST["Stime"])){
 			if ( $_POST["Sday"] == "pm" ){	$startTime = ($_POST["Shour"] + 12);	$startTime .= ":";	$startTime .= $_POST["Smin"];	$startTime .= ":00";	}
 			else	{	$startTime = ($_POST["Shour"]);	$startTime .= ":";	$startTime .= $_POST["Smin"];	$startTime .= ":00";	}
@@ -41,10 +49,12 @@
  		$startDate = date("Y-m-d");
  		$endDate = date("Y-m-d");
  		$every="60";
-		$startTime = "00:00:00";
+		$startTime = "00:00";
 		$endTime = "24:00";
 		$station = "met1";
  	} 
+
+
  	// Create connection to mysql
  	$user = 'browse';
  	$columns=array();
@@ -65,8 +75,8 @@ try {
 	//search database for dates(startdate + enddate + time + mod with every varaible)
 	//$stmt = $conn->prepare('SELECT date, time, temp, humidity, dewpt, heat, press, seapress, windspeed, windavg, winddir, windchill, rainrate, raintotal FROM metdata WHERE date BETWEEN :startDate AND :endDate AND mod(minute(time),:every) = 0');
 	//$stmt->execute(array('startDate' => $startDate, 'endDate' => $endDate,'every' => $every));
-	$stmt = $conn->prepare('SELECT date, time, temp, humidity, dewpt, heat, press, seapress, windspeed, windavg, winddir, windchill, rainrate, raintotal FROM metdata WHERE date BETWEEN :startDate AND :endDate AND time between :startTime AND :endTime AND mod(minute(time),:every) = 0');
-	$stmt->execute(array('startDate' => $startDate, 'endDate' => $endDate, 'startTime' => $startTime, 'endTime' => $endTime,'every' => $every));
+	$stmt = $conn->prepare('SELECT date, time, temp, humidity, dewpt, heat, press, seapress, windspeed, windavg, winddir, windchill, rainrate, raintotal FROM metdata WHERE station=:station AND date BETWEEN :startDate AND :endDate AND time between :startTime AND :endTime AND mod(minute(time),:every) = 0');
+	$stmt->execute(array('station' => $station, 'startDate' => $startDate, 'endDate' => $endDate, 'startTime' => $startTime, 'endTime' => $endTime,'every' => $every));
 	$row = $stmt->fetchAll();
 
         //encode results into json for dataTables
@@ -90,7 +100,7 @@ try {
         //$filename ='/admin/test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
         //$name .= $filename;
         
-        $name ='./test/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
+        $name ='./var/' . $station . "_" . $startDate . "_" . $endDate . "_" . uniqid() . ".csv";
         
         $fp = fopen($name, 'w');
         if(!is_resource($fp)){
@@ -111,8 +121,12 @@ try {
 
 
 <div id="header"></div>
- 
-<div id="nav"><a href="http://www.eri.ucsb.edu">ERI Home</a></br></br><a href="http://webmet.eri.ucsb.edu/admin/date.html">Request Page</a></div>
+  <div id="nav">
+    <a href="http://www.eri.ucsb.edu">ERI Home</a><br/>
+    <a href="./">Request Page</a><br/>
+    <a href="http://met1.eri.ucsb.edu">Met1 Station</a>
+  </div>
+</div>
 
 <section id="main">
 <h1 align="center">Data From Met Stations</h1>
@@ -127,7 +141,7 @@ try {
 <p></br>EndDate:<?php echo $endDate; ?></br>EndTime:<?php echo $endTime; ?></p>
 </div>
 <div class="clear"></div>
-<form method="get" action=<?php echo $filename; ?>>
+<form method="get" action=<?php echo $name; ?>>
 <button type="submit">Download Met Data</button>
 </form>
 </div>
