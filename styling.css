@@ -1,60 +1,84 @@
-body {
+html {
+	height: 100%;
 	background-color: #7C9EC4; // fallback
-	background-image: url('erilogo.png') top center no-repeat; // fallback
-	
-	background: url('erilogo.png') top center no-repeat, -moz-linear-gradient(top,  #7C9EC4,  #FFFFFF);
-	background: url('erilogo.png') top center no-repeat, -webkit-gradient(linear, left top, left bottom, from(#7C9EC4), to(#FFFFFF));
+	background-image: url('./images/erilogo.png') top center no-repeat; // fallback
+
+	background: url('./images/erilogo.png') top center no-repeat, linear-gradient(top,#7C9EC4,  #FFFFFF);
+	background: url('./images/erilogo.png') top center no-repeat, -moz-linear-gradient(top,  #7C9EC4,  #FFFFFF);
+	background: url('./images/erilogo.png') top center no-repeat, -webkit-linear-gradient(top, #7C9EC4, #FFFFFF);
+	/*background-size: 25%; */
+	/*background: url('erilogo.png') top center no-repeat, -webkit-gradient(linear,left top, left bottom, from(#7C9EC4), to(#FFFFFF));*/
 }
-/* linear-gradient(top, #1e5799,#a5c9e5);
-}*/
-/*
-body {
-  background: url('http://eri.ucsb.edu/sites/www.eri.ucsb.edu/files/jpeg_0.jpeg') no-repeat center center fixed; 
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
+div#fillerWrapper {
+	clear: both;
+	width: 100%;
+	height: 100%;
+	display: block;
 }
-div#wrapper {
-width: 80%;
-margin-top: 50px;
-margin-bottom: 50px;
-margin-left: auto;
-margin-right: auto;
-padding: 0px;
-} */
+div#filler {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+/* can adjust padding as needed if we have a logo */
 div#header {
-padding: 80px;
-margin: 0px;
-text-align: center;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
 }
-/*
-nav{    
-  width: 150px;
-  float: left;
-  display: inline;
-  margin: 0;
-  padding: 0;
-  margin-right: 10px;
-}
-*/
-
 div#nav {
-width: 10%;
-height: 100%;
-padding: 10px;
-margin-top: 21px;
-float: left;
-border-right: 3px solid #000; 
-
+	width: 10%;
+	height: 100%;
+	padding: 10px;
+	margin-top: 21px;
+	float: left;
+	border-right: 3px solid #000;
 }
 section#main{
-  width: 80%;
-  float: left;
-  margin: 5px;
-  margin-top: 21px;
-  padding: 15px;
-  display: inline;    
+	width: 80%;
+	float: left;
+	margin: 5px;
+	margin-top: 21px;
+	padding: 15px;
+	display: inline;
 }
-
-
+div#info {
+	background-color: #ccc;
+	padding: 10px;
+	width: 100%;
+	max-width:400px;
+	border:2px solid #FFF;
+	border-radius:25px;
+	float: left;
+}
+#left, #right {
+	float: left;
+	width: 35%;
+	margin: 1% 0 1% 1%;
+	padding: 1%;
+	color: #000;
+}
+#right {
+	float: right;
+	margin: 1% 1% 1% 0;
+}
+.clear {
+	height: 0;
+	font-size: 1px;
+	margin: 0;
+	padding: 0;
+	line-height: 0;
+	clear: both;
+}
+div#tab	{
+	margin-left: 30px;
+}
+div#dynamic	{
+	width: 70%;
+}
+TR {
+	font-size:12px
+}
+TD {
+	font-size:11px
+}

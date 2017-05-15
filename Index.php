@@ -61,8 +61,10 @@ require_once 'config.php';
 
 <body>
 <div id="wrapper">
-<div id="header"></div>
-<div id="nav"><a href="http://www.eri.ucsb.edu">ERI Home</a></div>
+<div id="header"></div><!-- open and close header -->
+<div id="nav">
+    <a href="http://www.eri.ucsb.edu">ERI Home</a>
+</div><!-- close nav -->
 
 <section id="main">
   <h1>Data From Met Stations</h1>
@@ -77,11 +79,7 @@ foreach($metstations as $key => $desc){
     echo "<option value=\"$key\">$desc</option>\n";
 }
  ?>
- <!--
-  		<option value="met1">Met 1: Ellsion Hall</option>
-                  <option value="met2">Met 2: MSB</option>
-              -->
-  	</select>
+  </select>
   <label for="from"><br>Choose Dates:<br>From:</label>
   	<input type="text" id="from" name="from">
   <label for="Stime">Start Time:</label>
@@ -139,6 +137,9 @@ foreach($metstations as $key => $desc){
   </form>
   <!-- </p> -->
   </section>
+</div><!-- close wrapper -->
+<div id="fillerWrapper">
+    <div id="filler">&nbsp;</div>
 </div>
 </body>
 </html>
