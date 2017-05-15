@@ -2,7 +2,10 @@
  <head>
  <meta charset="UTF-8"/>
  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+ <script type="text/javascript" charset="utf-8" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+ <!--
  <script type="text/javascript" charset="utf-8" src="DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
+ -->
   <title>Process Met SQL</title>
   <style type="text/css" title="currentStyle">
     @import "DataTables-1.9.4/media/css/demo_table.css";
