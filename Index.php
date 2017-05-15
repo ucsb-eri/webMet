@@ -63,7 +63,9 @@ require_once 'config.php';
 <div id="wrapper">
 <div id="header"></div><!-- open and close header -->
 <div id="nav">
-    <a href="http://www.eri.ucsb.edu">ERI Home</a>
+    <a href="http://www.eri.ucsb.edu">ERI Home</a><br />
+    <a href="./">Request Page</a><br/>
+    <a href="http://met1.eri.ucsb.edu">Met1 Station</a>
 </div><!-- close nav -->
 
 <section id="main">

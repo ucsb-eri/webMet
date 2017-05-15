@@ -7,9 +7,12 @@
  <script type="text/javascript" charset="utf-8" src="DataTables-1.9.4/media/js/jquery.dataTables.js"></script>
  -->
   <title>Process Met SQL</title>
+  <!--
   <style type="text/css" title="currentStyle">
     @import "DataTables-1.9.4/media/css/demo_table.css";
   </style>
+  -->
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="styling.css">
 </head>
 
@@ -138,7 +141,7 @@ if( ! is_null($conn)){
 </div>
 <div class="clear"></div>
 <form method="get" action=<?php echo $name; ?>>
-<button type="submit">Download Met Data</button>
+<button type="submit">Download Met Data (CSV)</button>
 </form>
 </div>
 
