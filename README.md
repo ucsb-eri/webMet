@@ -23,3 +23,7 @@ ill,rainrate,raintotal) VALUES ('[YYYY]-[MM]-[DD]','[hh]:[mm]:[ss]','met1','[th0
 99]','[th0dew-act.1:-9999]', '[th0heatindex-act.1:-9999]','[thb0press-act.1:-9999]','[thb0seapress-act.1:-9999]','[wind0
 wind-act.1:-9999]','[wind0avgwind-act.1:-9999]','[wind0dir-act.1:-9999]','[wind0chill-act.1:-9999]','[rain0rate-act.1:-9
 999]','[rain0total-act.1:-9999]','[uv0index-act.1:-9999]','[sol0rad-act.1:-9999]')";'''
+
+## Additional Information
+We have additional information on the whole weather station setup at:
+https://wiki-sysadm.eri.ucsb.edu/Weather_Station
